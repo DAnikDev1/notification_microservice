@@ -36,4 +36,22 @@ public class NotificationController {
     public void readAllNotificationsForUserId(@Valid @PathVariable Long userId) {
         notificationService.readAllNotificationsForUserId(userId);
     }
+
+    @PatchMapping("/read_one/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void readOneNotificationById(@Valid @PathVariable Long id) {
+        notificationService.readOneNotificationById(id);
+    }
+
+    @DeleteMapping("/remove_one/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeOneNotificationById(@Valid @PathVariable Long id) {
+        notificationService.removeOneNotificationById(id);
+    }
+
+    @DeleteMapping("/remove_all/{userId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeAllNotificationsForUserId(@Valid @PathVariable Long userId) {
+        notificationService.removeAllNotificationsForUserId(userId);
+    }
 }

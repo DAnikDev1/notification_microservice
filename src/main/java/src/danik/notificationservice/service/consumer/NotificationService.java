@@ -18,15 +18,18 @@ public class NotificationService {
     private final NotificationRepository notificationRepository;
     private final NotificationMapper notificationMapper;
 
+    @Transactional
     public void processNotification(NotificationEvent event) {
         Notification notification = notificationMapper.eventToEntity(event);
         notificationRepository.save(notification);
     }
 
+    @Transactional
     public List<NotificationDto> getAllNotificationForUserById(Long userId) {
         return notificationRepository.getNotificationsByUserId(userId).stream().map(notificationMapper::toDto).toList();
     }
 
+    @Transactional
     public List<NotificationDto> getUnreadNotificationsForUserById(Long userId) {
         return notificationRepository.getNotificationsByUserIdAndReadIsFalse(userId).stream().map(notificationMapper::toDto).toList();
     }
@@ -34,5 +37,20 @@ public class NotificationService {
     @Transactional
     public void readAllNotificationsForUserId(Long userId) {
         notificationRepository.readAllNotificationsForUserId(userId);
+    }
+
+    @Transactional
+    public void readOneNotificationById(Long id) {
+        notificationRepository.readOneNotificationById(id);
+    }
+
+    @Transactional
+    public void removeOneNotificationById(@Valid Long id) {
+        notificationRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void removeAllNotificationsForUserId(@Valid Long userId) {
+        notificationRepository.removeNotificationsByUserId(userId);
     }
 }
