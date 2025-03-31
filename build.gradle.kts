@@ -36,6 +36,8 @@ dependencies {
     implementation("org.mapstruct:mapstruct:1.5.3.Final")
     implementation ("org.hibernate.validator:hibernate-validator:8.0.1.Final") // For tests
     implementation ("org.glassfish:jakarta.el:4.0.2") // For tests
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6")
+
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("org.postgresql:postgresql")
     annotationProcessor("org.projectlombok:lombok")

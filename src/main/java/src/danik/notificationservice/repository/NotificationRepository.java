@@ -1,12 +1,10 @@
 package src.danik.notificationservice.repository;
 
-import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import src.danik.notificationservice.dto.NotificationDto;
 import src.danik.notificationservice.entity.Notification;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package src.danik.notificationservice.service.consumer;
+package src.danik.notificationservice.service.notification;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,6 +9,7 @@ import src.danik.notificationservice.dto.NotificationEvent;
 import src.danik.notificationservice.entity.Notification;
 import src.danik.notificationservice.mapper.NotificationMapper;
 import src.danik.notificationservice.repository.NotificationRepository;
+import src.danik.notificationservice.service.validator.NotificationValidator;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class NotificationService {
     private final NotificationRepository notificationRepository;
     private final NotificationMapper notificationMapper;
+    private final NotificationValidator notificationValidator;
 
     @Transactional
     public void processNotification(NotificationEvent event) {
@@ -24,33 +26,38 @@ public class NotificationService {
         notificationRepository.save(notification);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<NotificationDto> getAllNotificationForUserById(Long userId) {
+        notificationValidator.checkThatUserIsExist(userId);
         return notificationRepository.getNotificationsByUserId(userId).stream().map(notificationMapper::toDto).toList();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<NotificationDto> getUnreadNotificationsForUserById(Long userId) {
+        notificationValidator.checkThatUserIsExist(userId);
         return notificationRepository.getNotificationsByUserIdAndReadIsFalse(userId).stream().map(notificationMapper::toDto).toList();
     }
 
     @Transactional
     public void readAllNotificationsForUserId(Long userId) {
+        notificationValidator.checkThatUserIsExist(userId);
         notificationRepository.readAllNotificationsForUserId(userId);
     }
 
     @Transactional
     public void readOneNotificationById(Long id) {
+        notificationValidator.checkThatNotificationIsExist(id);
         notificationRepository.readOneNotificationById(id);
     }
 
     @Transactional
-    public void removeOneNotificationById(@Valid Long id) {
+    public void removeOneNotificationById(Long id) {
         notificationRepository.deleteById(id);
     }
 
     @Transactional
-    public void removeAllNotificationsForUserId(@Valid Long userId) {
+    public void removeAllNotificationsForUserId(Long userId) {
+        notificationValidator.checkThatUserIsExist(userId);
         notificationRepository.removeNotificationsByUserId(userId);
     }
 }

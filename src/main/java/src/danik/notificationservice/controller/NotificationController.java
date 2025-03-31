@@ -6,9 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import src.danik.notificationservice.dto.NotificationDto;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import src.danik.notificationservice.service.consumer.NotificationService;
+import src.danik.notificationservice.service.notification.NotificationService;
 
 import java.util.List;
 
