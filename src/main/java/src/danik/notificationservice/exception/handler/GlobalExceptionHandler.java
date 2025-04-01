@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import src.danik.notificationservice.exception.DataValidationException;
 
 @RestControllerAdvice
 @Slf4j
@@ -30,6 +31,13 @@ public class GlobalExceptionHandler {
     public ErrorResponse processFeignException(FeignException e) {
         log.error("Feign exception: {}", e.getMessage());
         return ErrorResponse.builder().message(e.getMessage()).status(503).build();
+    }
+
+    @ExceptionHandler(DataValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse processBadRequestException(DataValidationException e) {
+        log.error("Data validation exception: {}", e.getMessage());
+        return ErrorResponse.builder().message(e.getMessage()).build();
     }
 
     @ExceptionHandler(Exception.class)

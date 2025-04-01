@@ -3,6 +3,7 @@ package src.danik.notificationservice.service.validator;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import src.danik.notificationservice.exception.DataValidationException;
 import src.danik.notificationservice.repository.NotificationRepository;
 import src.danik.notificationservice.service.user.UserService;
 
@@ -13,6 +14,9 @@ public class NotificationValidator {
     private final NotificationRepository notificationRepository;
 
     public void checkThatUserIsExist(Long userId) {
+        if (userId == null) {
+            throw new DataValidationException("User Id is null");
+        }
         if (!userService.isUserExist(userId)) {
             throw new EntityNotFoundException("User doesn't exists");
         }

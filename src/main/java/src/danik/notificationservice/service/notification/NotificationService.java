@@ -1,11 +1,10 @@
 package src.danik.notificationservice.service.notification;
 
 import org.springframework.transaction.annotation.Transactional;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import src.danik.notificationservice.dto.NotificationDto;
-import src.danik.notificationservice.dto.NotificationEvent;
+import src.danik.notificationservice.kafka.event.NotificationEvent;
 import src.danik.notificationservice.entity.Notification;
 import src.danik.notificationservice.mapper.NotificationMapper;
 import src.danik.notificationservice.repository.NotificationRepository;

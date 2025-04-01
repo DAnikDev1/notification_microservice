@@ -1,4 +1,4 @@
-package src.danik.notificationservice.dto;
+package src.danik.notificationservice.kafka.event;
 
 import lombok.Builder;
 import lombok.Data;
