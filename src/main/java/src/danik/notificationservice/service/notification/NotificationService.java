@@ -34,7 +34,7 @@ public class NotificationService {
     @Transactional(readOnly = true)
     public List<NotificationDto> getUnreadNotificationsForUserById(Long userId) {
         notificationValidator.checkThatUserIsExist(userId);
-        return notificationRepository.getNotificationsByUserIdAndReadIsFalse(userId).stream().map(notificationMapper::toDto).toList();
+        return notificationRepository.getNotificationsByUserIdAndReadStatusIsFalse(userId).stream().map(notificationMapper::toDto).toList();
     }
 
     @Transactional

@@ -27,8 +27,8 @@ public class Notification {
     @Column(name = "event_id", nullable = false)
     private Long eventId;
 
-    @Column(name = "is_read", nullable = false)
-    private boolean isRead;
+    @Column(name = "readStatus", nullable = false)
+    private boolean readStatus;
 
     @Column(name = "text", nullable = false)
     private String text;
